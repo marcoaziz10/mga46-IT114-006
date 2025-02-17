@@ -1,5 +1,7 @@
 package M2;
-
+// UCID: mga46
+// Date: February 17, 2025
+// Summary: Solution for #3 - Convert values to positive while perserving data type
 public class Problem3 extends BaseClass {
     private static Integer[] array1 = {42, -17, 89, -256, 1024, -4096, 50000, -123456};
     private static Double[] array2 = {3.14159265358979, -2.718281828459, 1.61803398875, -0.5772156649, 0.0000001, -1000000.0};
@@ -17,7 +19,31 @@ public class Problem3 extends BaseClass {
         // Step 3: Add code to solve the problem (add/commit as needed)
         Object[] output = new Object[arr.length];
         // Start Solution Edits
-        
+
+        //Loop through the input array & process each value
+        // Convert each value to a positive number
+        // Preserve the original data type when storing the positive value in 'output'
+              for (int i = 0; i < arr.length; i++) {
+            if (arr[i] instanceof Integer) {
+                output[i] = Math.abs((Integer) arr[i]);
+            } else if (arr[i] instanceof Double) {
+                output[i] = Math.abs((Double) arr[i]);
+            } else if (arr[i] instanceof Float) {
+                output[i] = Math.abs((Float) arr[i]);
+            } else if (arr[i] instanceof String) {
+                try {
+                    if (((String) arr[i]).contains(".")) {
+                        output[i] = Math.abs(Double.parseDouble((String) arr[i]));
+                    } else {
+                        output[i] = Math.abs(Integer.parseInt((String) arr[i]));
+                    }
+                } catch (NumberFormatException e) {
+                    output[i] = arr[i];
+                }
+            } else {
+                output[i] = arr[i];
+            }
+        }
 
         // End Solution Edits
         System.out.println("Output: ");
@@ -27,7 +53,7 @@ public class Problem3 extends BaseClass {
     }
 
     public static void main(String[] args) {
-        final String ucid = "mt85"; // <-- change to your UCID
+        final String ucid = "mga46"; // <-- change to your UCID
         // no edits below this line
         printHeader(ucid, 3);
         bePositive(array1, 1);
