@@ -1,5 +1,8 @@
 package M2;
 
+// UCID: mga46
+// Date: February 17, 2025
+// Summary: Solution for #4 - Transforming text with cleaning & formatting
 public class Problem4 extends BaseClass {
     private static String[] array1 = { "hello world!", "java programming", "special@#$%^&characters", "numbers 123 456",
             "mIxEd CaSe InPut!" };
@@ -30,7 +33,35 @@ public class Problem4 extends BaseClass {
         
         for(int i = 0; i <arr.length; i++){
             // Start Solution Edits
-            
+            //Remove non-alphanumeric characters except spaces
+            String cleanedText = arr[i].replaceAll("[^a-zA-Z0-9 ]", "");
+
+            //Convert to Title Case
+            String[] words = cleanedText.toLowerCase().split("\\s+");
+            StringBuilder titleCased = new StringBuilder();
+            for (String word : words) {
+                if (!word.isEmpty()) {
+                    titleCased.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1)).append(" ");
+                }
+            }
+            String titleCaseText = titleCased.toString().trim();
+
+            //Trim spaces and replace multiple spaces with a single space
+            String modifiedPhrase = titleCaseText.replaceAll("\\s+", " ").trim();
+
+            //Extract middle 3 characters
+            String middleCharacters;
+            int length = modifiedPhrase.length();
+            if (length < 3) {
+                middleCharacters = "Not enough characters";
+            } else {
+                int middleIndex = length / 2 - 1;
+                middleCharacters = modifiedPhrase.substring(middleIndex, middleIndex + 3);
+            }
+
+            //Assign final values
+            String placeholderForModifiedPhrase = modifiedPhrase;
+            String placeholderForMiddleCharacters = middleCharacters;
              // End Solution Edits
             System.out.println(String.format("Index[%d] \"%s\" | Middle: \"%s\"",i, placeholderForModifiedPhrase, placeholderForMiddleCharacters));
         }
@@ -42,7 +73,7 @@ public class Problem4 extends BaseClass {
     }
 
     public static void main(String[] args) {
-        final String ucid = "mt85"; // <-- change to your UCID
+        final String ucid = "mga46"; // <-- change to your UCID
         // No edits below this line
         printHeader(ucid, 4);
 
