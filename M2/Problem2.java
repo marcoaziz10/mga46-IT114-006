@@ -1,5 +1,9 @@
 package M2;
 
+// UCID: mga46
+// Date: February 17, 2025
+// Summary: Solution for Problem 2 - Summing arrays values with formatted output
+
 public class Problem2 extends BaseClass {
     private static double[] array1 = { 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 };
     private static double[] array2 = { 1.0000001, 1.0000002, 1.0000003, 1.0000004, 1.0000005 }; 
@@ -21,10 +25,19 @@ public class Problem2 extends BaseClass {
         double total = 0;
         // Start Solution Edits
         // Solve Challenge 1 here
+
+        //Loop through the array and add each value to 'total'
+        //Store the sum of all elements in 'total'
+        for (double num : arr) {
+            total += num;
+        }
         
       
         // Solve Challenge 2 here
-        Object modifiedTotal = "?";
+
+        //Format 'total' to exactly 2 decimal places using the string.format
+        //Assign the formatted value to 'modifiedTotal'
+        String modifiedTotal = String.format("%.2f", total);
 
         // End Solution Edits
         System.out.println("Total Raw Value: " +total);
@@ -34,7 +47,7 @@ public class Problem2 extends BaseClass {
     }
 
     public static void main(String[] args) {
-        final String ucid = "mt85"; // <-- change to your UCID
+        final String ucid = "mga46"; // <-- change to your UCID
         // no edits below this line
         printHeader(ucid, 2);
         sumValues(array1, 1);
