@@ -33,10 +33,9 @@ public class Problem4 extends BaseClass {
         
         for(int i = 0; i <arr.length; i++){
             // Start Solution Edits
-            //Remove non-alphanumeric characters except spaces
+            // Remove non-alphanumeric characters except spaces
             String cleanedText = arr[i].replaceAll("[^a-zA-Z0-9 ]", "");
-
-            //Convert to Title Case
+            // Convert to Title Case
             String[] words = cleanedText.toLowerCase().split("\\s+");
             StringBuilder titleCased = new StringBuilder();
             for (String word : words) {
@@ -44,12 +43,10 @@ public class Problem4 extends BaseClass {
                     titleCased.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1)).append(" ");
                 }
             }
-            String titleCaseText = titleCased.toString().trim();
-
-            //Trim spaces and replace multiple spaces with a single space
-            String modifiedPhrase = titleCaseText.replaceAll("\\s+", " ").trim();
-
-            //Extract middle 3 characters
+            String modifiedPhrase = titleCased.toString().trim();
+            // Trim spaces and replace multiple spaces with a single space
+            modifiedPhrase = modifiedPhrase.replaceAll("\\s+", " ").trim();
+            // Extract middle 3 characters
             String middleCharacters;
             int length = modifiedPhrase.length();
             if (length < 3) {
@@ -58,9 +55,7 @@ public class Problem4 extends BaseClass {
                 int middleIndex = length / 2 - 1;
                 middleCharacters = modifiedPhrase.substring(middleIndex, middleIndex + 3);
             }
-
-            //Assign final values
-            // Assign final values
+            // Assign final values **without redeclaration**
             placeholderForModifiedPhrase = modifiedPhrase;
             placeholderForMiddleCharacters = middleCharacters;
 
