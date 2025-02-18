@@ -60,8 +60,10 @@ public class Problem4 extends BaseClass {
             }
 
             //Assign final values
-            String placeholderForModifiedPhrase = modifiedPhrase;
-            String placeholderForMiddleCharacters = middleCharacters;
+            // Assign final values
+            placeholderForModifiedPhrase = modifiedPhrase;
+            placeholderForMiddleCharacters = middleCharacters;
+
              // End Solution Edits
             System.out.println(String.format("Index[%d] \"%s\" | Middle: \"%s\"",i, placeholderForModifiedPhrase, placeholderForMiddleCharacters));
         }
