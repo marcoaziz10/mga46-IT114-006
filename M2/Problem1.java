@@ -18,12 +18,14 @@ public class Problem1 extends BaseClass {
         // Step 3: Add code to solve the problem (add/commit as needed)
         System.out.print("Output Array: ");
         // Start Solution Edits
-         for (int i = 0; i < arr.length; i++) {
+        boolean first = true;
+        for (int i = 0; i < arr.length; i++) {
             if (arr[i] % 2 != 0) {
-                if (i > 0) {
+                if (!first) {
                     System.out.print(", ");
                 }
                 System.out.print(arr[i]);
+                first = false;
             }
         }
 
