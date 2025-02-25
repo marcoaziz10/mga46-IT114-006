@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 /*
 Challenge 3: Mad Libs Generator (Randomized Stories)
 -----------------------------------------------------
