@@ -26,10 +26,10 @@ public class SlashCommandHandler extends BaseClass {
         printHeader(ucid, 2, "Objective: Implement a simple slash command parser.");
 
         Scanner scanner = new Scanner(System.in);
-
+        boolean running = true;
         // Can define any variables needed here
 
-        while (true) {
+        while (running) {
             System.out.print("Enter command: ");
             String input = scanner.nextLine().trim();
             String[] parts = input.split(" ", 2);
