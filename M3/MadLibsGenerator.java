@@ -70,7 +70,7 @@ public class MadLibsGenerator extends BaseClass {
         System.out.print("Enter a word for " + placeholder + ": ");
         String userInput = scanner.nextLine();
 
-        lines.set(i, lines.get(i).replaceFirst("<[^>]+>", userInput));
+        lines.set(i, lines.get(i).replaceFirst("\\<.*?\\>", userInput));
     }
 }
         // apply the update to the same collection slot
