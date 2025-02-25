@@ -68,7 +68,8 @@ public class MadLibsGenerator extends BaseClass {
         // Iterate through the lines and replace placeholders
         for (int i = 0; i < lines.size(); i++) {
             while (lines.get(i).contains("<")) {
-                // Find placeholder in the format <placeholder>
+                // prompt the user for each placeholder (note: there may be more than one
+                // placeholder in a line)                
                 int start = lines.get(i).indexOf("<");
                 int end = lines.get(i).indexOf(">", start);
                 if (start == -1 || end == -1) break;
@@ -77,14 +78,13 @@ public class MadLibsGenerator extends BaseClass {
                 System.out.print("Enter a word for " + placeholder + ": ");
                 String userInput = scanner.nextLine();
 
-                // Corrected regex for placeholder replacement
+                // apply the update to the same collection slot
                 lines.set(i, lines.get(i).replaceFirst("\\<.*?\\>", userInput));
             }
         }
 
         // STOP EDITS
 
-        // Print the final completed story
         System.out.println("\nYour Completed Mad Libs Story:\n");
         StringBuilder finalStory = new StringBuilder();
         for (String line : lines) {
