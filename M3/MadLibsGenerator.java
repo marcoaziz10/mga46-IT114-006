@@ -6,8 +6,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.*;
-import java.util.*;
+
 
 /*
 Challenge 3: Mad Libs Generator (Randomized Stories)
