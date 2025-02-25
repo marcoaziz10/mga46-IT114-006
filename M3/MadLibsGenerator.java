@@ -1,12 +1,11 @@
 package M3;
+
 // UCID: mga46
 // Date: February 24, 2025
 // Summary: Solution for Task #2 - Implement a Mad Libs generator that replaces placeholders dynamically
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
+import java.io.*;       // For BufferedReader, FileReader, IOException
+import java.util.*;     // For Random, ArrayList, Scanner, List
 
 /*
 Challenge 3: Mad Libs Generator (Randomized Stories)
@@ -21,30 +20,39 @@ Challenge 3: Mad Libs Generator (Randomized Stories)
 
 public class MadLibsGenerator extends BaseClass {
     private static final String STORIES_FOLDER = "M3/stories";
-    private static String ucid = "mga46"; // <-- change to your ucid
+    private static String ucid = "mga46"; // Updated UCID
 
     public static void main(String[] args) {
-        printHeader(ucid, 3,
-                "Objective: Implement a Mad Libs generator that replaces placeholders dynamically.");
+        printHeader(ucid, 3, "Objective: Implement a Mad Libs generator that replaces placeholders dynamically.");
 
         Scanner scanner = new Scanner(System.in);
         File folder = new File(STORIES_FOLDER);
 
-        if (!folder.exists() || !folder.isDirectory() || folder.listFiles().length == 0) {
+        if (!folder.exists() || !folder.isDirectory()) {
             System.out.println("Error: No stories found in the 'stories' folder.");
             printFooter(ucid, 3);
             scanner.close();
             return;
         }
-        List<String> lines = new ArrayList<>();
-        // Start edits
 
-        // load a random story file
+        // Ensure stories exist before picking a random one
         File[] files = folder.listFiles();
+        if (files == null || files.length == 0) {
+            System.out.println("Error: No stories found in the 'stories' folder.");
+            printFooter(ucid, 3);
+            scanner.close();
+            return;
+        }
+
+        List<String> lines = new ArrayList<>();
+
+        // START EDITS
+
+        // Load a random story file
         Random rand = new Random();
         File storyFile = files[rand.nextInt(files.length)];
          
-        // parse the story lines
+        // Parse the story lines
         try (BufferedReader reader = new BufferedReader(new FileReader(storyFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -57,25 +65,26 @@ public class MadLibsGenerator extends BaseClass {
             return;
         }
     
-        // iterate through the lines
-    for (int i = 0; i < lines.size(); i++) {
+        // Iterate through the lines and replace placeholders
+        for (int i = 0; i < lines.size(); i++) {
             while (lines.get(i).contains("<")) {
-        // prompt the user for each placeholder (note: there may be more than one
-        // placeholder in a line)
-        int start = lines.get(i).indexOf("<");
-        int end = lines.get(i).indexOf(">", start);
-        if (start == -1 || end == -1) break;
+                // Find placeholder in the format <placeholder>
+                int start = lines.get(i).indexOf("<");
+                int end = lines.get(i).indexOf(">", start);
+                if (start == -1 || end == -1) break;
 
-        String placeholder = lines.get(i).substring(start, end + 1);
-        System.out.print("Enter a word for " + placeholder + ": ");
-        String userInput = scanner.nextLine();
+                String placeholder = lines.get(i).substring(start, end + 1);
+                System.out.print("Enter a word for " + placeholder + ": ");
+                String userInput = scanner.nextLine();
 
-        lines.set(i, lines.get(i).replaceFirst("\\<.*?\\>", userInput));
-    }
-}
-        // apply the update to the same collection slot
+                // Corrected regex for placeholder replacement
+                lines.set(i, lines.get(i).replaceFirst("\\<.*?\\>", userInput));
+            }
+        }
 
-        // End edits
+        // STOP EDITS
+
+        // Print the final completed story
         System.out.println("\nYour Completed Mad Libs Story:\n");
         StringBuilder finalStory = new StringBuilder();
         for (String line : lines) {
