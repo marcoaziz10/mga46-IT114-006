@@ -51,9 +51,10 @@ public class MadLibsGenerator extends BaseClass {
         // START EDITS
 
         // Load a random story file
+        File[] files = folder.listFiles();
         Random rand = new Random();
         File storyFile = files[rand.nextInt(files.length)];
-         
+
         // Parse the story lines
         try (BufferedReader reader = new BufferedReader(new FileReader(storyFile))) {
             String line;
@@ -66,24 +67,25 @@ public class MadLibsGenerator extends BaseClass {
             scanner.close();
             return;
         }
-    
-        // Iterate through the lines and replace placeholders
+
+        // Iterate through the lines
         for (int i = 0; i < lines.size(); i++) {
             while (lines.get(i).contains("<")) {
-                // prompt the user for each placeholder (note: there may be more than one
-                // placeholder in a line)                
+                // Prompt the user for each placeholder
                 int start = lines.get(i).indexOf("<");
                 int end = lines.get(i).indexOf(">", start);
                 if (start == -1 || end == -1) break;
 
                 String placeholder = lines.get(i).substring(start, end + 1);
-                System.out.print("Enter a word for " + placeholder + ": ");
+                String formattedPlaceholder = placeholder.replace("_", " "); // Replace underscores with spaces
+                System.out.print("Enter a word for " + formattedPlaceholder + ": ");
                 String userInput = scanner.nextLine();
 
-                // apply the update to the same collection slot
-                lines.set(i, lines.get(i).replaceFirst("\\<.*?\\>", userInput));
+                // Apply the update to the same collection slot
+                lines.set(i, lines.get(i).replaceFirst("<[^>]+>", userInput));
             }
         }
+
 
         // STOP EDITS
 
