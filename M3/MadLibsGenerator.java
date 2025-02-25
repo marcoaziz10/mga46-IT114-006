@@ -4,8 +4,10 @@ package M3;
 // Date: February 24, 2025
 // Summary: Solution for Task #2 - Implement a Mad Libs generator that replaces placeholders dynamically
 
-import java.io.*;       // For BufferedReader, FileReader, IOException
-import java.util.*;     // For Random, ArrayList, Scanner, List
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /*
 Challenge 3: Mad Libs Generator (Randomized Stories)
