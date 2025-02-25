@@ -5,8 +5,12 @@ package M3;
 // Summary: Solution for Task #2 - Implement a Mad Libs generator that replaces placeholders dynamically
 
 import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 /*
