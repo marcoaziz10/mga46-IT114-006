@@ -1,5 +1,7 @@
 package M3;
-
+// UCID: mga46
+// Date: February 24, 2025
+// Summary: Solution for Task #2 - Implement a Mad Libs generator that replaces placeholders dynamically
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ Challenge 3: Mad Libs Generator (Randomized Stories)
 
 public class MadLibsGenerator extends BaseClass {
     private static final String STORIES_FOLDER = "M3/stories";
-    private static String ucid = "mt85"; // <-- change to your ucid
+    private static String ucid = "mga46"; // <-- change to your ucid
 
     public static void main(String[] args) {
         printHeader(ucid, 3,
@@ -37,14 +39,39 @@ public class MadLibsGenerator extends BaseClass {
         // Start edits
 
         // load a random story file
-
+        File[] files = folder.listFiles();
+        Random rand = new Random();
+        File storyFile = files[rand.nextInt(files.length)];
+         
         // parse the story lines
-
+        try (BufferedReader reader = new BufferedReader(new FileReader(storyFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lines.add(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading the story file.");
+            printFooter(ucid, 3);
+            scanner.close();
+            return;
+        }
+    
         // iterate through the lines
-
+    for (int i = 0; i < lines.size(); i++) {
+            while (lines.get(i).contains("<")) {
         // prompt the user for each placeholder (note: there may be more than one
         // placeholder in a line)
+        int start = lines.get(i).indexOf("<");
+        int end = lines.get(i).indexOf(">", start);
+        if (start == -1 || end == -1) break;
 
+        String placeholder = lines.get(i).substring(start, end + 1);
+        System.out.print("Enter a word for " + placeholder + ": ");
+        String userInput = scanner.nextLine();
+
+        lines.set(i, lines.get(i).replaceFirst("<[^>]+>", userInput));
+    }
+}
         // apply the update to the same collection slot
 
         // End edits
