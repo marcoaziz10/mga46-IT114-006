@@ -18,7 +18,7 @@ Challenge 2: Simple Slash Command Handler
 */
 
 import java.util.Scanner;
-import java.util.Random;
+
 
 
 public class SlashCommandHandler extends BaseClass {
