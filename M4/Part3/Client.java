@@ -120,6 +120,17 @@ public class Client {
         String[] commandData = { Constants.COMMAND_TRIGGER, "flip" };
         sendToServer(String.join(",", commandData));
         wasCommand = true;
+            else if (text.startsWith("/pm ")) {
+                String[] parts = text.split(" ", 3);
+                if (parts.length >= 3) {
+                    String[] commandData = { Constants.COMMAND_TRIGGER, "pm", parts[1], parts[2] };
+                    sendToServer(String.join(",", commandData));
+                    wasCommand = true;
+                } else {
+                   System.out.println("Usage: /pm <target_id> <message>");
+                }
+            }
+
         }
         return wasCommand;
     }
