@@ -115,12 +115,11 @@ public class Client {
             String[] commandData = { Constants.COMMAND_TRIGGER, "disconnect" };
             sendToServer(String.join(",", commandData));
             wasCommand = true;
-        } else if (text.startsWith("/reverse")) {
-            text = text.replace("/reverse", "").trim();
-            // index 0 = trigger, index 1 = command, index N = command data
-            String[] commandData = { Constants.COMMAND_TRIGGER, "reverse", text };
-            sendToServer(String.join(",", commandData));
-            wasCommand = true;
+        } else if (text.equalsIgnoreCase("/flip")) { 
+        // index 0 = trigger, index 1 = command
+        String[] commandData = { Constants.COMMAND_TRIGGER, "flip" };
+        sendToServer(String.join(",", commandData));
+        wasCommand = true;
         }
         return wasCommand;
     }
