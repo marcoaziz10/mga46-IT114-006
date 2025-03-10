@@ -130,6 +130,12 @@ public class Server {
     protected synchronized void handleMessage(ServerThread sender, String text) {
         relay(sender, text);
     }
+
+    protected synchronized void handleFlipCoin(ServerThread sender) {
+    String result = Math.random() < 0.5 ? "Heads" : "Tails";
+    relay(sender, sender.getClientId() + " flipped a coin and got " + result);
+}
+
     // end handle actions
 
     public static void main(String[] args) {
