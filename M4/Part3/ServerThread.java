@@ -201,6 +201,10 @@ public class ServerThread extends Thread {
                         server.handleReverseText(this, relevantText);
                         wasCommand = true;
                         break;
+                    case "flip":
+                        server.handleFlipCoin(this);
+                        wasCommand = true;
+                        break;
                     // added more cases/breaks as needed for other commands
                     default:
                         break;
