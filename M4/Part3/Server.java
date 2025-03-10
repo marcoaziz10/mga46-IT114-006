@@ -132,9 +132,15 @@ public class Server {
     }
 
     protected synchronized void handleFlipCoin(ServerThread sender) {
-    String result = Math.random() < 0.5 ? "Heads" : "Tails";
-    relay(sender, sender.getClientId() + " flipped a coin and got " + result);
-}
+        String result = Math.random() < 0.5 ? "Heads" : "Tails";
+         relay(sender, sender.getClientId() + " flipped a coin and got " + result);
+    }
+    
+    protected synchronized void handleShuffleMessage(ServerThread sender, String message) {
+        String shuffledMessage = new StringBuilder(message).reverse().toString();
+        relay(sender, "Shuffled from User[" + sender.getClientId() + "]: " + shuffledMessage);
+    }
+
 
     // end handle actions
 
