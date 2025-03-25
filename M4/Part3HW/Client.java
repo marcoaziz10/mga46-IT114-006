@@ -1,5 +1,8 @@
 package M4.Part3HW;
 
+// UCID: mga46
+// Date: April 5, 2025
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -122,6 +125,13 @@ public class Client {
             sendToServer(String.join(",", commandData));
             wasCommand = true;
         }
+        else if (text.startsWith("/shuffle")) {
+            text = text.replace("/shuffle", "").trim();
+            String[] commandData = { Constants.COMMAND_TRIGGER, "shuffle", text };
+            sendToServer(String.join(",", commandData));
+            wasCommand = true;
+        }
+        
         else if (text.startsWith("/pm ")) {
             String[] parts = text.split(" ", 3);
             if (parts.length >= 3) {
