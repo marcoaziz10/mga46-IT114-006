@@ -50,4 +50,9 @@ public class Server {
         rooms.put(name, room);
         return room;
     }
+
+    // NEW: Used to add a custom Room like GameRoom
+    public static void addRoom(String name, Room room) {
+        rooms.put(name, room);
+    }
 }

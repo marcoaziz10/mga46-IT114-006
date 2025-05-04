@@ -43,10 +43,30 @@ public class ServerThread extends Thread {
 
                 } else if (msg.startsWith("/create ")) {
                     String roomName = msg.substring(8).trim();
-                    Room newRoom = Server.createRoom(roomName);
+                    Room newRoom = new GameRoom(roomName); // USE GameRoom, not just Room
+                    Server.addRoom(roomName, newRoom);
                     if (currentRoom != null) currentRoom.leave(this);
                     currentRoom = newRoom;
                     currentRoom.join(this);
+
+                } else if (msg.equalsIgnoreCase("/ready")) {
+                    if (currentRoom instanceof GameRoom) {
+                        ((GameRoom) currentRoom).setPlayerReady(this);
+                    } else {
+                        send("[SERVER] You must be in a game room to use /ready.");
+                    }
+
+                } else if (msg.startsWith("/pick ")) {
+                    if (currentRoom instanceof GameRoom) {
+                        String choice = msg.substring(6).trim().toLowerCase();
+                        if (choice.equals("r") || choice.equals("p") || choice.equals("s")) {
+                            ((GameRoom) currentRoom).playerPick(this, choice);
+                        } else {
+                            send("[SERVER] Invalid pick. Choose r, p, or s.");
+                        }
+                    } else {
+                        send("[SERVER] You must be in a game room to pick.");
+                    }
 
                 } else {
                     if (currentRoom != null) {
