@@ -11,18 +11,14 @@ public class Room {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public synchronized void join(ServerThread client) {
         clients.add(client);
-        broadcast(client.getClientName() + " joined the room.");
+        onClientAdded(client);
     }
 
     public synchronized void leave(ServerThread client) {
         clients.remove(client);
-        broadcast(client.getClientName() + " left the room.");
+        onClientRemoved(client);
     }
 
     public synchronized void broadcast(String message) {
@@ -30,5 +26,14 @@ public class Room {
             client.send(message);
         }
     }
-}
 
+    public String getName() {
+        return name;
+    }
+
+    public void onClientAdded(ServerThread client) {
+    }
+
+    public void onClientRemoved(ServerThread client) {
+    }
+}

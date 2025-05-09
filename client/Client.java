@@ -19,6 +19,7 @@ public class Client {
             if (input.startsWith("/name ")) {
                 name = input.substring(6);
                 System.out.println("[CLIENT] Name set to: " + name);
+
             } else if (input.startsWith("/connect ")) {
                 try {
                     String[] parts = input.split(" ");
@@ -31,6 +32,7 @@ public class Client {
                 } catch (Exception e) {
                     System.out.println("[CLIENT] Connection error: " + e.getMessage());
                 }
+
             } else if (input.equals("/exit")) {
                 try {
                     if (socket != null) {
@@ -41,8 +43,15 @@ public class Client {
                     System.out.println("[CLIENT] Error disconnecting: " + e.getMessage());
                 }
                 break; // exits the loop and ends program
+
             } else if (out != null) {
-                out.println(name + ": " + input);
+                // Send commands as-is, messages get tagged with the name
+                if (input.startsWith("/")) {
+                    out.println(input);
+                } else {
+                    out.println(name + ": " + input);
+                }
+
             } else {
                 System.out.println("[CLIENT] Please connect first using /connect <host> <port>");
             }
