@@ -1,13 +1,24 @@
+// start edits - mga46
 package common;
 
-public class Payload {
+import java.io.Serializable;
+
+public class Payload implements Serializable {
+    private PayloadType type;
     private String clientId;
     private String message;
-    private String type;
 
-    public Payload(String clientId, String message, String type) {
+    public Payload(PayloadType type, String clientId, String message) {
+        this.type = type;
         this.clientId = clientId;
         this.message = message;
+    }
+
+    public PayloadType getPayloadType() {
+        return type;
+    }
+
+    public void setPayloadType(PayloadType type) {
         this.type = type;
     }
 
@@ -15,16 +26,16 @@ public class Payload {
         return clientId;
     }
 
+    public void setClientId(String id) {
+        this.clientId = id;
+    }
+
     public String getMessage() {
         return message;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    @Override
-    public String toString() {
-        return "[Payload] clientId=" + clientId + ", message=" + message + ", type=" + type;
+    public void setMessage(String msg) {
+        this.message = msg;
     }
 }
+// stop edits - mga46

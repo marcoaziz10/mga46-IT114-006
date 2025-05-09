@@ -1,3 +1,4 @@
+// start edits - mga46
 package server;
 
 import java.io.IOException;
@@ -9,12 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Server {
     private static final int PORT = 12345;
     private static ArrayList<ServerThread> clients = new ArrayList<>();
-
-    // Room management
     private static ConcurrentHashMap<String, Room> rooms = new ConcurrentHashMap<>();
 
     static {
-        rooms.put("Lobby", new Room("Lobby")); // default room
+        rooms.put("Lobby", new Room("Lobby")); // Default room
     }
 
     public static void main(String[] args) {
@@ -40,19 +39,13 @@ public class Server {
         clients.remove(client);
     }
 
-    // Room management methods
     public static Room getRoom(String name) {
         return rooms.get(name);
     }
 
-    public static Room createRoom(String name) {
-        Room room = new Room(name);
-        rooms.put(name, room);
-        return room;
-    }
-
-    // NEW: Used to add a custom Room like GameRoom
     public static void addRoom(String name, Room room) {
         rooms.put(name, room);
+        System.out.println("[SERVER] Room added: " + name);
     }
 }
+// stop edits - mga46

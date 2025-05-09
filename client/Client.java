@@ -1,62 +1,65 @@
+// start edits - mga46
 package client;
 
-import java.io.*;
+import common.Payload;
+import common.PayloadType;
+
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String name = "";
-        PrintWriter out = null;
-        Socket socket = null;
+    private Socket socket;
+    private ObjectOutputStream out;
+    private GameUI ui;
+    private String name;
 
-        System.out.println("[CLIENT] Welcome. Use /name and /connect to begin.");
+    public Client(GameUI ui) {
+        this.ui = ui;
+    }
 
-        while (true) {
-            String input = scanner.nextLine();
+    public void connect(String host, int port, String name) {
+        this.name = name;
+        try {
+            socket = new Socket(host, port);
+            out = new ObjectOutputStream(socket.getOutputStream());
+            new Thread(new ServerListener(socket, ui)).start();
 
-            if (input.startsWith("/name ")) {
-                name = input.substring(6);
-                System.out.println("[CLIENT] Name set to: " + name);
+            Payload connectPayload = new Payload(PayloadType.CONNECT, name, null);
+            sendPayload(connectPayload);
 
-            } else if (input.startsWith("/connect ")) {
-                try {
-                    String[] parts = input.split(" ");
-                    String host = parts[1];
-                    int port = Integer.parseInt(parts[2]);
-                    socket = new Socket(host, port);
-                    out = new PrintWriter(socket.getOutputStream(), true);
-                    new Thread(new ServerListener(socket)).start();
-                    out.println(name);
-                } catch (Exception e) {
-                    System.out.println("[CLIENT] Connection error: " + e.getMessage());
-                }
-
-            } else if (input.equals("/exit")) {
-                try {
-                    if (socket != null) {
-                        socket.close();
-                        System.out.println("[CLIENT] Disconnected.");
-                    }
-                } catch (IOException e) {
-                    System.out.println("[CLIENT] Error disconnecting: " + e.getMessage());
-                }
-                break; // exits the loop and ends program
-
-            } else if (out != null) {
-                // Send commands as-is, messages get tagged with the name
-                if (input.startsWith("/")) {
-                    out.println(input);
-                } else {
-                    out.println(name + ": " + input);
-                }
-
-            } else {
-                System.out.println("[CLIENT] Please connect first using /connect <host> <port>");
-            }
+            ui.appendToGameLog("[CLIENT] Connected to server.");
+        } catch (Exception e) {
+            ui.appendToGameLog("[CLIENT] Failed to connect: " + e.getMessage());
         }
+    }
 
-        scanner.close();
+    public void sendJoin(String roomName) {
+        sendPayload(new Payload(PayloadType.JOIN, name, roomName));
+    }
+
+    public void sendReady() {
+        sendPayload(new Payload(PayloadType.READY, name, null));
+    }
+
+    public void sendPick(String choice) {
+        sendPayload(new Payload(PayloadType.PICK, name, choice));
+    }
+
+    public void sendMessage(String message) {
+        sendPayload(new Payload(PayloadType.MESSAGE, name, message));
+    }
+
+    private void sendPayload(Payload payload) {
+        try {
+            if (out != null) {
+                out.writeObject(payload);
+                out.flush();
+            } else {
+                ui.appendToGameLog("[CLIENT] Output stream not initialized.");
+            }
+        } catch (Exception e) {
+            ui.appendToGameLog("[CLIENT] Error sending message: " + e.getMessage());
+        }
     }
 }
+// stop edits - mga46
